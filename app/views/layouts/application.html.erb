@@ -7,14 +7,25 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div>
-  <% if current_user %>
-    <%= current_user.email %>
-  <% end %>
-</div>
-<%= link_to "выйти", destroy_user_session_path, method: :delete %>
-
-<%= yield %>
-
+  <div id="wrap">
+    <div id="head" class="clear-fix">
+      <span>CHAT</span>
+      <ul class="nav">
+        <% if current_user %>
+          <li><%= current_user.email %></li>
+          <li><%= link_to "Выйти", destroy_user_session_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to "Войти", new_user_session_path  %></li>
+          <li><%= link_to "Зарегестрироваться", new_user_registration_path  %></li>
+        <% end %>
+        <li>
+          
+        </li>        
+      </ul>
+    </div>
+    <div class="<%= controller_name %>">
+      <%= yield %>
+    </div>
+  </div> 
 </body>
 </html>

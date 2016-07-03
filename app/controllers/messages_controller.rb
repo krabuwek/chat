@@ -4,7 +4,8 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.all
+    @messages = Message.order("created_at DESC").where("sender_id=#{current_user.id} OR recipient_id=#{current_user.id}").page params[:page]
+    @message  = Message.new   #спросить как сделать по нормальному
   end
 
   # GET /messages/1
@@ -24,11 +25,12 @@ class MessagesController < ApplicationController
   # POST /messages
   # POST /messages.json
   def create
+    message_params = params.require(:message).permit(:recipient_id, :text)
     @message = Message.new(message_params)
-
+    @message.sender_id = current_user.id
     respond_to do |format|
       if @message.save
-        format.html { redirect_to @message, notice: 'Message was successfully created.' }
+        format.html { redirect_to user_messages_path current_user.id, notice: 'Message was successfully created.' }
         format.json { render :show, status: :created, location: @message }
       else
         format.html { render :new }

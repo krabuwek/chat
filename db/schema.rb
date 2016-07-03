@@ -11,14 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160703080412) do
+ActiveRecord::Schema.define(version: 20160703221905) do
+
+  create_table "conferences", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "conferences_users", id: false, force: :cascade do |t|
+    t.integer "user_id",       null: false
+    t.integer "conference_id", null: false
+  end
+
+  add_index "conferences_users", ["conference_id", "user_id"], name: "index_conferences_users_on_conference_id_and_user_id"
+  add_index "conferences_users", ["user_id", "conference_id"], name: "index_conferences_users_on_user_id_and_conference_id"
 
   create_table "messages", force: :cascade do |t|
-    t.integer  "sender_id"
-    t.integer  "recipient_id"
+    t.integer  "user_id"
+    t.integer  "conference_id"
     t.text     "text"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "users", force: :cascade do |t|

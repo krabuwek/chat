@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.order("created_at DESC").where("sender_id=#{current_user.id} OR recipient_id=#{current_user.id}").page params[:page]
+    @messages = Message.order("created_at DESC").where("conferences.user_id=#{current_user.id}").page params[:page]
     @message  = Message.new   #спросить как сделать по нормальному
   end
 

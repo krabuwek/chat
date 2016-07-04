@@ -2,6 +2,20 @@
 
 <h1>Listing Conferences</h1>
 
+<% @conferences.each do |conference| %>
+  <p>
+    <strong>Id:</strong>
+    <%= conference.id %>
+    <ul>
+      <% conference.users.map do |user| %>
+        <li><%= user.email %></li>
+      <% end %>
+    </ul>
+    <%= link_to "open conference", conference_path(conference.id) %> 
+  </p>
+<% end %>
+
+
 <table>
   <thead>
     <tr>

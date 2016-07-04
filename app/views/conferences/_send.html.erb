@@ -1,0 +1,11 @@
+<%= form_for(Message.new) do |f| %>
+  <div class="field">
+    <p>Enter your message</p>
+    <%= f.label :text %><br>
+    <%= f.text_field :text %>
+    <%= f.hidden_field :conference_id, value: @conference.id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -4,7 +4,7 @@ class ConferencesController < ApplicationController
   # GET /conferences
   # GET /conferences.json
   def index
-    @conferences = Conference.all
+    @conferences = User.find(current_user.id).conferences
   end
 
   # GET /conferences/1
@@ -13,8 +13,13 @@ class ConferencesController < ApplicationController
   end
 
   # GET /conferences/new
-  def new
+  def new 
     @conference = Conference.new
+    @conference.users << User.find(params[:user_id])
+    @conference.users << current_user
+    @conference.save
+    @message = Message.new
+    redirect_to conferences_path
   end
 
   # GET /conferences/1/edit

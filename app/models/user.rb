@@ -1,12 +1,12 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  has_many :message
-  has_many :conferences , class_name: :Conference ##шото надо починить тут братка
+  has_many :messages
+  has_and_belongs_to_many :conferences ##шото надо починить тут братка
   devise :database_authenticatable, 
        :registerable,
        :recoverable, 
-       :rememberable, 
+       :rememberable,
        :trackable, 
        :validatable
 end

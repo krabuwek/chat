@@ -4,7 +4,7 @@ class ConferencesController < ApplicationController
   # GET /conferences
   # GET /conferences.json
   def index
-    @conferences = User.find(current_user.id).conferences
+    @conferences = User.find(current_user.id).conferences.order("created_at DESC")
   end
 
   # GET /conferences/1
@@ -18,7 +18,6 @@ class ConferencesController < ApplicationController
     @conference.users << User.find(params[:user_id])
     @conference.users << current_user
     @conference.save
-    @message = Message.new
     redirect_to conferences_path
   end
 
@@ -64,6 +63,11 @@ class ConferencesController < ApplicationController
       format.html { redirect_to conferences_url, notice: 'Conference was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def add_user_in_conference
+    @conference.users << User.find(params[:user_id])
+    redirect_to @conference
   end
 
   private

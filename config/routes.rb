@@ -2,13 +2,13 @@ Rails.application.routes.draw do
 
   get 'messages/new'#, to: 'messages#new'
 
-  resources :users, shallow: true do
-    resources :messages
-  end
+  get 'users/index'
 
   resources :messages
   resources :conferences
   get 'conferences/new/:user_id', to: 'conferences#new'
+  get 'users/:conference_id', to: 'users#index'
+  get 'conferences/add_user_in_conference/:user_id', to: 'conferences#add_user_in_conference'
 
   devise_for :users, path: 'auth', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'cmon_let_me_in' }
   # The priority is based upon order of creation: first created -> highest priority.

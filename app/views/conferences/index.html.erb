@@ -7,7 +7,7 @@
     <strong>Id:</strong>
     <%= conference.id %>
     <ul>
-      <% conference.users.map do |user| %>
+      <% conference.users.each do |user| %>
         <li><%= user.email %></li>
       <% end %>
     </ul>

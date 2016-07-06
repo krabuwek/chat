@@ -1,11 +1,12 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
+  before_action :load_conference, only: [:index]
 
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.order("created_at DESC").where("conferences.user_id=#{current_user.id}").page params[:page]
-    @message  = Message.new   #спросить как сделать по нормальному
+    @messages = @conference.messages.page params[:page]
+   
   end
 
   # GET /messages/1
@@ -30,7 +31,7 @@ class MessagesController < ApplicationController
     @message.user_id = current_user.id
     respond_to do |format|
       if @message.save
-        format.html { redirect_to conference_path @message.conference_id, notice: 'Message was successfully sended.' }
+        format.html { redirect_to conference_messages_path @message.conference_id, notice: 'Message was successfully sended.' }
         format.json { render :show, status: :created, location: @message }
       else
         format.html { render :new }
@@ -61,6 +62,10 @@ class MessagesController < ApplicationController
       format.html { redirect_to messages_url, notice: 'Message was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def load_conference 
+    @conference = Conference.find(params[:conference_id])
   end
 
   private

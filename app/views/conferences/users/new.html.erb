@@ -1,0 +1,13 @@
+<table>
+  <thead>
+    <th>email</th colspan="2">
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= link_to 'add in conference', conference_users_create_path(conference_id: @conference.id, user_id: user.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -64,12 +64,7 @@ class ConferencesController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  def add_user_in_conference
-    @conference.users << User.find(params[:user_id])
-    redirect_to @conference
-  end
-
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_conference

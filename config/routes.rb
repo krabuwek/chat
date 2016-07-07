@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   get 'conferences/new/:user_id', to: 'conferences#new', as: :new_conference
 
+  get 'conference/:conference_id/users/add/:user_id', to: 'conferences/users#create', as: :conference_users_create
+
   get 'conference/:conference_id/users/:user_id', to: 'conferences/users#destroy', as: :destroy_conference_user
 
   resources :messages

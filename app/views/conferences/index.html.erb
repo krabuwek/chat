@@ -11,7 +11,7 @@
         <li><%= user.email %></li>
       <% end %>
     </ul>
-    <%= link_to "open conference", conference_path(conference.id) %> 
+    <%= link_to "open conference", conference_messages_path(conference) %> 
   </p>
 <% end %>
 
@@ -38,4 +38,3 @@
 
 <br>
 
-<%= link_to 'New Conference', new_conference_path %>

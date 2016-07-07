@@ -1,24 +1,29 @@
 module Conferences
   class UsersController < ApplicationController
-    before_action :load_conference, only: [:index, :add_user_in_conference]
+    before_action :load_conference, only: [:index, :destroy]
 
     def index
       @users = @conference.users
     end
 
-    def show_all_users
-      @users = User.all
-    end
-
-
-    def add_user_in_conference
+    def create
       @user = User.find(params[:user_id])
       @conference << @user
       redirect_to conference_users_path @conference
     end
 
-    def load_conference 
-      @conference = Conference.find(params[:conference_id])
+    def destroy
+      @user = User.find(params[:user_id])
+      users = @conference.users
+      users.delete(@user);
+      @conference.users = users
+      @conference.save
+      redirect_to conference_users_path @conference
     end
+
+    private
+      def load_conference 
+        @conference = Conference.find(params[:conference_id])
+      end
   end
 end

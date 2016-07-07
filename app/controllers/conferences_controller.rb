@@ -18,7 +18,7 @@ class ConferencesController < ApplicationController
     @conference.users << User.find(params[:user_id])
     @conference.users << current_user
     @conference.save
-    redirect_to conferences_path
+    redirect_to conference_messages_path @conference
   end
 
   # GET /conferences/1/edit

@@ -1,12 +1,17 @@
 Rails.application.routes.draw do
 
+  root to: 'users#index'
+
   get 'messages/new'#, to: 'messages#new'
 
   get 'users/index'
 
-  get 'conferences/:conference_id/users/show_all_users', to: 'conferences/users#show_all_users'
+  get 'conferences/new/:user_id', to: 'conferences#new', as: :new_conference
+
+  get 'conference/:conference_id/users/:user_id', to: 'conferences/users#destroy', as: :destroy_conference_user
 
   resources :messages
+  resources :conferences, exept: :new
 
   resources :conferences do
     resources :messages
@@ -14,7 +19,6 @@ Rails.application.routes.draw do
       resources :users
     end
   end
-
 
   resources :users
 

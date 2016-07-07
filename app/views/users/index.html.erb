@@ -18,7 +18,7 @@
         <tr>
           <td><%= user.email %></td>
           <td><%= user.id %></td>
-          <td><%= link_to 'add to conference', new_conference_path(user.id) %></td>
+          <td><%= link_to 'add to conference', new_conference_path(user_id: user.id) %></td>
         </tr>
       <% end %>
     <% end %>

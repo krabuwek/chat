@@ -10,7 +10,7 @@ module FiltrationUsers
   end
 
   def check_access
-    unless @conference.users.include?(current_user)
+    unless @conference.users.exists?(current_user.id)
       redirect_to error_index_path, notice: 'access denied'
     end
   end

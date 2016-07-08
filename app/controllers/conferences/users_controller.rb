@@ -18,9 +18,7 @@ module Conferences
 
     def destroy
       @user = User.find(params[:user_id])
-      users = @conference.users
-      users.delete(@user);
-      @conference.users = users
+      @conference.users.delete(@user) = users
       @conference.save
       redirect_to conference_users_path @conference
     end

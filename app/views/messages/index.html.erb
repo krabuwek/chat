@@ -4,6 +4,9 @@
 <p>
   <%= link_to 'show users in conference', conference_users_path(conference_id: params[:conference_id]) %>
 </p>
+<p>
+  <%= link_to 'add user', new_conference_user_path(conference_id: params[:conference_id]) %>
+</p>
 <table>
   <thead>
     <tr>

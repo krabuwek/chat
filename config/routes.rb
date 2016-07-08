@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
 
+  get 'error/index'
+
+  get 'eror/index'
+
   root to: 'users#index'
 
   get 'messages/new'#, to: 'messages#new'
 
   get 'users/index'
+
+  get 'erros/index'
 
   get 'conferences/new/:user_id', to: 'conferences#new', as: :new_conference
 

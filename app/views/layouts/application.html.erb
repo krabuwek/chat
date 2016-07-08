@@ -13,10 +13,12 @@
       <ul class="nav">
         <% if current_user %>
           <li><%= current_user.email %></li>
-          <li><%= link_to "Выйти", destroy_user_session_path, method: :delete %></li>
+          <li><%= link_to "logout", destroy_user_session_path, method: :delete %></li>
+          <li><%= link_to "view all conferences", conferences_path %></li>
+          <li><%= link_to "view all users", users_path %>
         <% else %>
-          <li><%= link_to "Войти", new_user_session_path  %></li>
-          <li><%= link_to "Зарегестрироваться", new_user_registration_path  %></li>
+          <li><%= link_to "sign in", new_user_session_path  %></li>
+          <li><%= link_to "sign up", new_user_registration_path  %></li>
         <% end %>
         <li>
           

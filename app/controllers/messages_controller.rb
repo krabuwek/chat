@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
-  before_action :load_conference, only: [:index]
+  before_action :load_conference, :check_access, only: [:index]
 
   # GET /messages
   # GET /messages.json
@@ -28,6 +28,11 @@ class MessagesController < ApplicationController
   def create
     message_params = params.require(:message).permit(:conference_id, :text)
     @message = Message.new(message_params)
+    @conference = @message.conference
+    #убрать этот костыль
+    if not @conference.users.include?(current_user)
+        redirect_to error_index_path, notice: 'access denied'
+    end
     @message.user_id = current_user.id
     respond_to do |format|
       if @message.save
@@ -57,18 +62,24 @@ class MessagesController < ApplicationController
   # DELETE /messages/1
   # DELETE /messages/1.json
   def destroy
+    @conference = @message.conference
+    #убрать этот костыль
+    if not @conference.users.include?(current_user)
+      redirect_to error_index_path, notice: 'access denied'
+    end
     @message.destroy
     respond_to do |format|
-      format.html { redirect_to messages_url, notice: 'Message was successfully destroyed.' }
+      format.html { redirect_to conference_messages_path @conference.id, notice: 'Message was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
-  def load_conference 
-    @conference = Conference.find(params[:conference_id])
-  end
+
 
   private
+    def load_conference 
+      @conference = Conference.find(params[:conference_id])
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_message
       @message = Message.find(params[:id])
@@ -77,5 +88,11 @@ class MessagesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
       params.require(:message).permit(:text)
+    end
+
+    def check_access
+      if not @conference.users.include?(current_user)
+        redirect_to error_index_path, notice: 'access denied'
+      end
     end
 end

@@ -4,7 +4,7 @@
   </thead>
   <tbody>
     <% @users.each do |user| %>
-      <% if !@conference.users.include?(user) %>
+      <% unless @conference.users.include?(user) %>
         <tr>
           <td><%= user.email %></td>
           <td><%= link_to 'add in conference', conference_users_create_path(conference_id: @conference.id, user_id: user.id) %></td>

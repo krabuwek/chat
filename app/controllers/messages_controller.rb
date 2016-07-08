@@ -1,12 +1,13 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
-  before_action :load_conference, :check_access, only: [:index]
+  before_action :user_can_delete_message, only: [:destroy]
+  include FiltrationUsers
 
   # GET /messages
   # GET /messages.json
   def index
     @messages = @conference.messages.page params[:page]
-   
+    @message = Message.new
   end
 
   # GET /messages/1
@@ -29,10 +30,6 @@ class MessagesController < ApplicationController
     message_params = params.require(:message).permit(:conference_id, :text)
     @message = Message.new(message_params)
     @conference = @message.conference
-    #убрать этот костыль
-    if not @conference.users.include?(current_user)
-        redirect_to error_index_path, notice: 'access denied'
-    end
     @message.user_id = current_user.id
     respond_to do |format|
       if @message.save
@@ -74,12 +71,7 @@ class MessagesController < ApplicationController
     end
   end
 
-
-
   private
-    def load_conference 
-      @conference = Conference.find(params[:conference_id])
-    end
     # Use callbacks to share common setup or constraints between actions.
     def set_message
       @message = Message.find(params[:id])
@@ -90,9 +82,9 @@ class MessagesController < ApplicationController
       params.require(:message).permit(:text)
     end
 
-    def check_access
-      if not @conference.users.include?(current_user)
-        redirect_to error_index_path, notice: 'access denied'
+    def user_can_delete_message
+      if @message.user != current_user
+        redirect_to error_index_path, notice: 'you can not delete this message'
       end
     end
 end

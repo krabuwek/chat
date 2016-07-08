@@ -1,4 +1,4 @@
-<%= form_for(@conference.messages.new) do |f| %>
+<%= form_for [@conference, @message] do |f| %>
   <div class="field">
     <%= f.label :text %><br>
     <%= f.text_field :text %>

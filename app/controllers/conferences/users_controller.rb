@@ -1,6 +1,6 @@
 module Conferences
   class UsersController < ApplicationController
-    before_action :load_conference, :check_access
+    include FiltrationUsers
 
     def index
       @users = @conference.users
@@ -24,16 +24,5 @@ module Conferences
       @conference.users.delete(@user)
       redirect_to conference_users_path @conference
     end
-
-    private
-      def load_conference 
-        @conference = Conference.find(params[:conference_id])
-      end
-
-      def check_access
-        if not @conference.users.include?(current_user)
-          redirect_to error_index_path, notice: 'access denied'
-        end
-      end
   end
 end

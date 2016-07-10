@@ -27,19 +27,25 @@ class MessagesController < ApplicationController
   # POST /messages
   # POST /messages.json
   def create
+    #message_params = params.require(:message).permit(:conference_id, :text)
+    ActionCable.server.broadcast 'messages',
+      message: params[:message][:text],
+      username: current_user.email
+    head :ok
     message_params = params.require(:message).permit(:conference_id, :text)
     @message = Message.new(message_params)
     @conference = @message.conference
     @message.user_id = current_user.id
-    respond_to do |format|
-      if @message.save
-        format.html { redirect_to conference_messages_path @message.conference_id, notice: 'Message was successfully sended.' }
-        format.json { render :show, status: :created, location: @message }
-      else
-        format.html { render :new }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
-      end
-    end
+    @message.save
+    #respond_to do |format|
+      #if @message.save
+        #format.html { redirect_to conference_messages_path @message.conference_id, notice: 'Message was successfully sended.' }
+        #format.json { render :show, status: :created, location: @message }
+      #else
+        #format.html { render :new }
+        #format.json { render json: @message.errors, status: :unprocessable_entity }
+      #end
+    #end
   end
 
   # PATCH/PUT /messages/1

@@ -13,11 +13,16 @@ class ConferencesController < ApplicationController
   end
 
   # GET /conferences/new
+  # переделать этот pizdec
   def new 
-    @conference = Conference.new
-    @conference.users << User.find(params[:user_id])
-    @conference.users << current_user
-    @conference.save
+    @conference = (current_user.conferences & User.find(params[:user_id]).conferences).first
+    if @conference.nil?
+      # current_user.conferences & User.find(params[:user_id]).conferences
+      @conference = Conference.new
+      @conference.users << User.find(params[:user_id])
+      @conference.users << current_user
+      @conference.save
+    end
     redirect_to conference_messages_path @conference
   end
 

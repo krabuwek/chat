@@ -9,4 +9,13 @@ class User < ActiveRecord::Base
        :rememberable,
        :trackable, 
        :validatable
+
+  def appear
+    self.online = 0
+  end
+
+  def disappear
+    self.online = 1
+  end
+
 end

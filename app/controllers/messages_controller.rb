@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    @messages = @conference.messages.page params[:page]
+    @messages = @conference.messages.order("created_at DESC").page params[:page]
     @message = Message.new
   end
 

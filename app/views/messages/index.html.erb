@@ -7,6 +7,7 @@
 <p>
   <%= link_to 'add user', new_conference_user_path(conference_id: params[:conference_id]) %>
 </p>
+<%= render partial: 'form' %>
 <table id='messages'>
   <thead>
     <tr>
@@ -21,6 +22,5 @@
 </table>
 
 <br>
-<%= render partial: 'form' %>
 <%= paginate @messages %>
 

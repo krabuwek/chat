@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    @messages = @conference.messages.order("created_at DESC").page params[:page]
+    @messages = @conference.messages.order("created_at ASC").page params[:page]
     @message = Message.new
   end
 
@@ -35,7 +35,8 @@ class MessagesController < ApplicationController
     @message.save
     ActionCable.server.broadcast "conference_#{@conference.id}",
       message: params[:message][:text],
-      username: current_user.email
+      username: current_user.email,
+      id: @message.id
     head :ok
     #respond_to do |format|
       #if @message.save

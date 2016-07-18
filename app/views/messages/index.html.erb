@@ -1,26 +1,17 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Messages</h1>
+
+<div id="messages">
+  <%= render @messages %> 
+</div>
+<%= render partial: 'form' %>
 <p>
   <%= link_to 'show users in conference', conference_users_path(conference_id: params[:conference_id]) %>
 </p>
 <p>
   <%= link_to 'add user', new_conference_user_path(conference_id: params[:conference_id]) %>
 </p>
-<%= render partial: 'form' %>
-<table id='messages'>
-  <thead>
-    <tr>
-      <th>Text</th>
-      <th colspan="2">author</th>
-    </tr>
-  </thead>
-
-  <tbody class='page'>
-    <%= render @messages %> 
-  </tbody>
-</table>
-
 <br>
 <%= paginate @messages %>
 

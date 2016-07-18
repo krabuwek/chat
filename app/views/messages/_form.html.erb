@@ -1,7 +1,7 @@
 <%= form_for [@conference, @message], remote: true do |f| %>
   <div class="field">
     <%= f.label :text %><br>
-    <%= f.text_field :text %>
+    <%= f.text_area :text, cols: 40 %>
     <%= f.hidden_field :conference_id, value: @conference.id %>
   </div>
   <div class="actions">

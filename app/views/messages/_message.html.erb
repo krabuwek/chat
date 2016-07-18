@@ -1,7 +1,7 @@
-<tr class="message">
-  <td><%= message.text %></td>
-  <td><%= message.user.email %></td>
+<div class="message" id="<%= message.id %>">
+  <p><%= message.text %></p>
+  <p><%= message.user.email %></p>
   <% if message.user_id == current_user.id %>
-    <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <p><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></p>
   <% end %>
-</tr>
+</div>

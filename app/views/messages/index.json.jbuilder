@@ -1,4 +1,5 @@
-json.array!(@messages) do |message|
+json.paginate pagination @messages
+json.messages(@messages) do |message|
   json.extract! message, :id, :text
-  json.url message_url(message, format: :json)
+  json.author message.user.email
 end

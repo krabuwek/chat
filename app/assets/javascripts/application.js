@@ -15,4 +15,3 @@
 //= require_tree .
 //= require cable
 //= require channels
-//= require jquery.infinitescroll

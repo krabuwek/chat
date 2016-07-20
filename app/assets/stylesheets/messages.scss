@@ -1,22 +1,39 @@
 .messages {
   width: 700px;
   margin: 0 auto;
+  text-align: left;
 
-  table {
-    border: 2px solid black;
-    td {
-      border: 2px dotted black;
-      padding: 10px 15px;
-      font-size: 20px;
-    }
+}
+div {
+  #1127{
+    float: right;
   }
 }
 #messages {
   overflow-y: scroll;
   height: 600px;
+  background-color: #fff;
 
   .message {
-    border: 1px solid black;
-    
+    //width:450px;
+    max-width: 350px;
+    min-width: 100px; 
+    clear:both; 
+    background-color:#304860;
+    color:#D8D8D8;
+    -moz-border-radius:5px;
+    -webkit-border-radius: 5px; 
+    border-radius: 5px;
+    text-align: justify; 
+    margin: 10px 0 10px;
+    //overflow: hidden
+    display: inline-block;
+    float: left;
+
+   
   }
+   .sender {
+      float:right !important;
+    }
+
 }

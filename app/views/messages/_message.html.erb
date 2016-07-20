@@ -1,7 +1,8 @@
-<div class="message" id="<%= message.id %>">
-  <p><%= message.text %></p>
-  <p><%= message.user.email %></p>
-  <% if message.user_id == current_user.id %>
-    <p><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></p>
-  <% end %>
-</div>
+<% if current_user.id == message.user.id %>
+  <div class="message sender" id="<%= message.id %>">
+<% else %>
+  <div class="message" id="<%= message.id %>">
+<% end %>
+    <p><%= message.text %></p>
+    <p><%= message.user.email %></p>
+  </div>

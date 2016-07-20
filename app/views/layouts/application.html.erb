@@ -12,7 +12,7 @@
       <span>CHAT</span>
       <ul class="nav">
         <% if current_user %>
-          <li><%= current_user.email %></li>
+          <li id="user" user-id="<%= current_user.id %>"><%= current_user.email %></li>
           <li><%= link_to "logout", destroy_user_session_path, method: :delete %></li>
           <li><%= link_to "view all conferences", conferences_path %></li>
           <li><%= link_to "view all users", users_path %>
